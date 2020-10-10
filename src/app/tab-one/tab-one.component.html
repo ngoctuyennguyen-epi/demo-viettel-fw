@@ -1,0 +1,25 @@
+<p>tab-one detail!</p>
+<button (click)="showToast()">Show toast</button>
+<button (click)="callApi()">Call Api</button>
+<br>
+<label for="path">Select path:<select [(ngModel)]="path" name="path" id="path">
+  <option [value]="'/success'">Success</option>
+  <option [value]="'/error'">Error</option>
+  <option [value]="'/business-error'">Business Error</option>
+</select></label>
+<br>
+<form action="" [formGroup]="demoFormGroup" (ngSubmit)="submitForm()" >
+  <label>Balance:
+    <vt-input-upgrade vtNumberOnly formControlName="balance" componentId="balance"></vt-input-upgrade>
+    <vt-selector [componentId]="'gender'" [placeholder]="'-Select Gender-'"
+                 [placeholderValue]="null" formControlName="gender" [disabled]="true"
+                 [defaultValue]="'1'" [fieldSearch]="false"
+                 [dataSource]="dataSource" [fields]="{value: 'code', text: 'meaning'}">
+    </vt-selector>
+  </label>
+  <input type="submit" value="Submit">
+</form>
+
+<ng-template #demoDiv let-name="name">
+  <p>My name is {{name}}</p>
+</ng-template>
