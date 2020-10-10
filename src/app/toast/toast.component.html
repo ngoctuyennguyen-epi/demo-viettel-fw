@@ -1,0 +1,23 @@
+<div class="custom-toast d-flex"
+     [ngStyle]="{'background-color': conf.type.bgColor,
+     'width': conf.size.width, 'height': conf.size.height,
+     'color': conf.type ? conf.type.textColor : conf.type.textColor,
+     'border-bottom-left-radius': conf.duration ? '0' : '0.5rem',
+     'border-bottom-right-radius': conf.duration ? '0' : '0.5rem'}"
+     [@fadeAnimation]="{value: animationState, params:
+        { fadeIn: conf.animation.fadeIn, fadeOut: conf.animation.fadeOut }}"
+     (@fadeAnimation.done)="onFadeFinished($event)"
+     (click)="close()">
+  <ng-container *ngIf="data.text; else templateReference">
+    <div>{{ data.text }}</div>
+  </ng-container>
+</div>
+<div class="custom-progress-bar" *ngIf="conf.duration"
+     [ngStyle]="{'width': (progress * 100 / conf.duration) + '%',
+     'background-color': conf.type ? conf.type.bgColor : conf.type.bgColor,
+     'filter': 'brightness(50%)'}">
+</div>
+<ng-template #templateReference>
+  <ng-container *ngTemplateOutlet="data.template; context: data.templateContext">
+  </ng-container>
+</ng-template>

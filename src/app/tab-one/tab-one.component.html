@@ -8,16 +8,18 @@
   <option [value]="'/business-error'">Business Error</option>
 </select></label>
 <br>
-<form action="" [formGroup]="demoFormGroup" (ngSubmit)="submitForm()" >
+<form action="" [formGroup]="demoFormGroup"  >
   <label>Balance:
     <vt-input-upgrade vtNumberOnly formControlName="balance" componentId="balance"></vt-input-upgrade>
-    <vt-selector [componentId]="'gender'" [placeholder]="'-Select Gender-'"
-                 [placeholderValue]="null" formControlName="gender" [disabled]="true"
-                 [defaultValue]="'1'" [fieldSearch]="false"
-                 [dataSource]="dataSource" [fields]="{value: 'code', text: 'meaning'}">
-    </vt-selector>
   </label>
-  <input type="submit" value="Submit">
+  <div style="width: 20%">
+    <vt-selector [componentId]="'gender'" [placeholder]="'-Select Gender-'"
+                 [placeholderValue]="null" formControlName="gender" [disabled]="false"
+                 [defaultValue]="'1'" [fieldSearch]="false"
+                 [dataSource]="dataSource" [fields]="{value: 'id', text: 'name'}">
+    </vt-selector>
+  </div>
+  <input type="submit" value="Submit" (click)="submitForm()">
 </form>
 
 <ng-template #demoDiv let-name="name">

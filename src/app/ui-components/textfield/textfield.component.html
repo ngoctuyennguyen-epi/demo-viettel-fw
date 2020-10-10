@@ -1,0 +1,5 @@
+<input [id]="componentId" [ngClass]="styleClass" class="form-control" #inputReference
+(blur)="onBlurFn($event)" [autocomplete]="turnOffAutoComplete ? 'off' : 'on'"
+[value]="value" [readOnly]="readOnly" (submit)="submit()"
+(input)="inputValue($event)" (keypress)= "keyPress($event)"
+[placeholder]="placeholder" [maxLength]="maxlength" [type]="type" [disabled]="disabled">
