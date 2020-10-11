@@ -10,15 +10,14 @@ import {
 } from '@angular/core';
 import { getLocaleNumberFormat, NumberFormatStyle } from '@angular/common';
 import { TranslateService } from '@ngx-translate/core';
-import { NgModel } from '@angular/forms';
+import { NgControl } from '@angular/forms';
 
 @Directive({
   selector: '[vtCurrencyInput]'
 })
 export class CurrencyInputDirective implements OnInit, AfterViewInit {
 
-  constructor(el: ElementRef, renderer: Renderer2, private model: NgModel,
-              private translateService: TranslateService) {
+  constructor(el: ElementRef, renderer: Renderer2, private model: NgControl) {
     this.elementRef = el;
     // console.log(getLocaleNumberFormat(locale, NumberFormatStyle.Decimal));
   }
@@ -30,13 +29,8 @@ export class CurrencyInputDirective implements OnInit, AfterViewInit {
   private elementRef: ElementRef;
 
   ngOnInit(): void {
-    if (this.translateService.getDefaultLang() === 'vi') {
-      CurrencyInputDirective.thousandSeparator = /(\.)/g;
-      CurrencyInputDirective.currentLocale = 'vi-VN';
-    } else {
-      CurrencyInputDirective.thousandSeparator = /(,)/g;
-      CurrencyInputDirective.currentLocale = 'en-US';
-    }
+    CurrencyInputDirective.thousandSeparator = /(\.)/g;
+    CurrencyInputDirective.currentLocale = 'vi-VN';
   }
 
   @HostListener('submit', ['$event.target'])
@@ -45,16 +39,21 @@ export class CurrencyInputDirective implements OnInit, AfterViewInit {
   }
 
   @HostListener('input', ['$event.target'])
+  @HostListener('focusout', ['$event.target'])
   onInput(el) {
     const strWithNoComma = el.value.toString().replace(CurrencyInputDirective.thousandSeparator, '');
     const strDigitOnly = strWithNoComma.replace(/\D/g, '');
+
+    let newValue;
+
     if (Number(strDigitOnly)) {
-      el.value = Number(strDigitOnly).toLocaleString(CurrencyInputDirective.currentLocale);
+      newValue = Number(strDigitOnly).toLocaleString(CurrencyInputDirective.currentLocale);
     } else {
-      el.value = strDigitOnly.replace(/\D/g, '');
+      newValue = strDigitOnly.replace(/\D/g, '');
     }
-    this.model.control.setValue(strDigitOnly);
-    this.model.valueAccessor.writeValue(el.value);
+
+    this.model.control.setValue(Number(strDigitOnly));
+    this.model.valueAccessor.writeValue(newValue);
   }
 
   ngAfterViewInit(): void {

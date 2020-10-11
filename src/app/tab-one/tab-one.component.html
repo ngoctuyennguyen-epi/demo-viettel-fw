@@ -10,7 +10,7 @@
 <br>
 <form action="" [formGroup]="demoFormGroup"  >
   <label>Balance:
-    <vt-input-upgrade vtNumberOnly formControlName="balance" componentId="balance"></vt-input-upgrade>
+    <vt-input-upgrade vtCurrencyInput formControlName="balance" componentId="balance"></vt-input-upgrade>
   </label>
   <div style="width: 20%">
     <vt-selector [componentId]="'gender'" [placeholder]="'-Select Gender-'"

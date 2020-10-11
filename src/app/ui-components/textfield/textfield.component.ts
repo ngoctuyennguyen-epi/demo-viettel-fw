@@ -46,7 +46,7 @@ export class TextFieldComponent extends UiBase implements OnInit, ControlValueAc
         this.onTouched();
     }
 
-    @Input() public disabled: any;
+    @Input() public isDisabled: any;
     // tslint:disable-next-line:no-output-on-prefix
     @Output() public onBlur = new EventEmitter<Event>();
     // tslint:disable-next-line:no-output-on-prefix
@@ -90,7 +90,7 @@ export class TextFieldComponent extends UiBase implements OnInit, ControlValueAc
     }
 
     public setDisabledState(isDisabled: boolean): void {
-        this.disabled = isDisabled;
+        this.isDisabled = isDisabled;
     }
 
     public writeValue(obj: any): void {
